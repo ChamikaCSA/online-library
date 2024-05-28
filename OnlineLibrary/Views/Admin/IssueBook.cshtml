@@ -11,6 +11,16 @@
 
 <form asp-action="IssueBook" method="post">
     <div class="form-group">
+        <label for="adminId">Select Admin</label>
+        <select id="adminId" name="adminId" class="form-control" required>
+            <option value="">Select Admin</option>
+            @foreach (var admin in ViewBag.Admins)
+            {
+                <option value="@admin.AdminID">@admin.Username</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
         <label for="bookId">Select Book</label>
         <select id="bookId" name="bookId" class="form-control" required>
             <option value="">Select Book</option>

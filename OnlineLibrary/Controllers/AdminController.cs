@@ -330,18 +330,20 @@ namespace OnlineLibrary.Controllers
         {
             ViewBag.Books = await _context.Book.ToListAsync();
             ViewBag.Guests = await _context.Guest.ToListAsync();
+            ViewBag.Admins = await _context.Admin.ToListAsync();
             return View();
         }
 
         // POST: Admin/IssueBook
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> IssueBook(int bookId, int guestId)
+        public async Task<IActionResult> IssueBook(int bookId, int guestId, int adminId)
         {
             var book = await _context.Book.FindAsync(bookId);
             var guest = await _context.Guest.FindAsync(guestId);
+            var admin = await _context.Admin.FindAsync(adminId);
 
-            if (book == null || guest == null)
+            if (book == null || guest == null || admin == null)
             {
                 return NotFound();
             }
@@ -350,7 +352,7 @@ namespace OnlineLibrary.Controllers
             {
                 IssueDate = DateTime.Now,
                 Status = "Issued",
-                Admin_AdminID = 1, // Assuming admin ID 1 is issuing the book
+                Admin_AdminID = adminId,
                 Guest_GuestID = guestId,
                 Book_BookID = bookId
             };

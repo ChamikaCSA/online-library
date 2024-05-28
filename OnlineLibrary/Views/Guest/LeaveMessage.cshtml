@@ -1,0 +1,32 @@
+﻿@model OnlineLibrary.Models.Message
+
+@{
+    ViewData["Title"] = "Leave a Message";
+}
+
+<h2>Leave a Message</h2>
+
+<form asp-action="LeaveMessage" method="post">
+    <div class="form-group">
+        <label for="guestName">Name</label>
+        <input type="text" id="guestName" name="guestName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="guestEmail">Email</label>
+        <input type="email" id="guestEmail" name="guestEmail" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="MessageContent">Message</label>
+        <textarea asp-for="MessageContent" class="form-control" rows="4"></textarea>
+        <span asp-validation-for="MessageContent" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Leave Message</button>
+</form>
+
+@if (TempData["MessageSuccessMessage"] != null)
+{
+    <div class="alert alert-success mt-3">
+        @TempData["MessageSuccessMessage"]
+    </div>
+}
+

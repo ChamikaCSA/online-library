@@ -1,0 +1,49 @@
+﻿@model List<OnlineLibrary.Models.Issue>
+
+<h2 class="text-center mt-4">Manage Issues</h2>
+
+@if (TempData["UpdateReturnSuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["UpdateReturnSuccessMessage"]
+    </div>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Issue ID</th>
+            <th>Issue Date</th>
+            <th>Return Date</th>
+            <th>Status</th>
+            <th>Admin ID</th>
+            <th>Guest ID</th>
+            <th>Book ID</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var issue in Model)
+        {
+            <tr>
+                <td>@issue.IssueID</td>
+                <td>@issue.IssueDate.ToShortDateString()</td>
+                <td>@issue.ReturnDate.ToShortDateString()</td>
+                <td>@issue.Status</td>
+                <td>@issue.Admin_AdminID</td>
+                <td>@issue.Guest_GuestID</td>
+                <td>@issue.Book_BookID</td>
+                <td>
+                    <form asp-action="UpdateReturn" method="post">
+                        <input type="hidden" name="issueId" value="@issue.IssueID" />
+                        <button type="submit" class="btn btn-primary">Update Return</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    <a asp-action="IssueBook" class="btn btn-primary">Issue a Book</a>
+</p>

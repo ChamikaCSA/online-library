@@ -1,0 +1,42 @@
+﻿@model IEnumerable<OnlineLibrary.Models.Book>
+
+@{
+    ViewData["Title"] = "Manage Books";
+}
+
+<h2 class="text-center mt-4">Manage Books</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>ISBN</th>
+            <th>Genre</th>
+            <th>Status</th>
+            <th></</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.BookID</td>
+                <td>@book.Title</td>
+                <td>@book.Author</td>
+                <td>@book.ISBN</td>
+                <td>@book.Genre</td>
+                <td>@book.Status</td>
+                <td>
+                    <a asp-action="EditBook" asp-route-id="@book.BookID">Edit</a> |
+                    <a asp-action="DeleteBook" asp-route-id="@book.BookID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    <a asp-action="AddBook" class="btn btn-primary">Add New Book</a>
+</p>

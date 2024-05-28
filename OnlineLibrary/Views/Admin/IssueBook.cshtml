@@ -1,0 +1,34 @@
+﻿@model OnlineLibrary.Models.Book
+
+<h2 class="text-center mt-4">Issue Book</h2>
+
+@if (TempData["IssueBookSuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["IssueBookSuccessMessage"]
+    </div>
+}
+
+<form asp-action="IssueBook" method="post">
+    <div class="form-group">
+        <label for="bookId">Select Book</label>
+        <select id="bookId" name="bookId" class="form-control" required>
+            <option value="">Select Book</option>
+            @foreach (var book in ViewBag.Books)
+            {
+                <option value="@book.BookID">@book.Title</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="guestId">Select Guest</label>
+        <select id="guestId" name="guestId" class="form-control" required>
+            <option value="">Select Guest</option>
+            @foreach (var guest in ViewBag.Guests)
+            {
+                <option value="@guest.GuestID">@guest.Name</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Issue Book</button>
+</form>

@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">Welcome to Sydenham Library</h1>
+        <p class="lead">Explore our vast collection of books and CDs.</p>
+        <hr class="my-4">
+        <p>Sign in as admin to manage the library or search for books as a guest.</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="@Url.Action("Login", "Admin")" role="button">Login as Admin</a>
+            <a class="btn btn-primary btn-lg" href="@Url.Action("SearchBooks", "Guest")" role="button">Search Books</a>
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>About Us</h2>
+            <p>Learn more about our library and its mission to provide educational resources to students.</p>
+            <p><a class="btn btn-secondary" href="#" role="button">Read More &raquo;</a></p>
+        </div>
+        <div class="col-md-6">
+            <h2>Privacy Policy</h2>
+            <p>Review our privacy policy to understand how we handle your personal information.</p>
+            <p><a class="btn btn-secondary" href="@Url.Action("Privacy", "Home")" role="button">Read More &raquo;</a></p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<OnlineLibrary.Models.Book>
+
+@{
+    ViewData["Title"] = "Search Books";
+}
+
+<h2>Search Books</h2>
+
+<form asp-action="SearchBooks" method="post">
+    <div class="form-group">
+        <label for="searchString">Search by Title or Author</label>
+        <input type="text" name="searchString" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+@if (TempData["ReservationSuccessMessage"] != null)
+{
+    <div class="alert alert-success mt-3">
+        @TempData["ReservationSuccessMessage"]
+    </div>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.Author</td>
+                <td>@book.Genre</td>
+                <td>@book.Status</td>
+                <td>
+                    <a asp-action="ReserveBook" asp-route-id="@book.BookID" class="btn btn-primary">Reserve</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

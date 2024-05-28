@@ -1,0 +1,65 @@
+﻿@model OnlineLibrary.Models.Issue
+
+<h2>Update Return</h2>
+
+@if (TempData["UpdateReturnSuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["UpdateReturnSuccessMessage"]
+    </div>
+}
+
+<div>
+    <h4>Issue Details</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Issue ID
+        </dt>
+        <dd class="col-sm-10">
+            @Model.IssueID
+        </dd>
+        <dt class="col-sm-2">
+            Issue Date
+        </dt>
+        <dd class="col-sm-10">
+            @Model.IssueDate.ToShortDateString()
+        </dd>
+        <dt class="col-sm-2">
+            Return Date
+        </dt>
+        <dd class="col-sm-10">
+            @Model.ReturnDate.ToShortDateString()
+        </dd>
+        <dt class="col-sm-2">
+            Status
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Status
+        </dd>
+        <dt class="col-sm-2">
+            Admin ID
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Admin_AdminID
+        </dd>
+        <dt class="col-sm-2">
+            Guest ID
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Guest_GuestID
+        </dd>
+        <dt class="col-sm-2">
+            Book ID
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Book_BookID
+        </dd>
+    </dl>
+    <hr />
+
+    <form asp-action="UpdateReturn" method="post">
+        <input type="hidden" name="issueId" value="@Model.IssueID" />
+        <button type="submit" class="btn btn-primary">Update Return</button>
+    </form>
+</div>

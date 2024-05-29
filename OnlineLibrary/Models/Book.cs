@@ -23,5 +23,7 @@ namespace OnlineLibrary.Models
 
         [StringLength(10)]
         public string Status { get; set; }
+
+        public static List<string> StatusOptions = new List<string> { "Available", "Reserved", "Issued" };
     }
 }

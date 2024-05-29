@@ -17,14 +17,12 @@ namespace OnlineLibrary.Models
 
         [ForeignKey("Admin")]
         public int Admin_AdminID { get; set; }
-        public virtual Admin Admin { get; set; }
 
         [ForeignKey("Guest")]
         public int Guest_GuestID { get; set; }
-        public virtual Guest Guest { get; set; }
 
         [ForeignKey("Book")]
         public int Book_BookID { get; set; }
-        public virtual Book Book { get; set; }
+
     }
 }

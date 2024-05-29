@@ -16,7 +16,7 @@
             <option value="">Select Admin</option>
             @foreach (var admin in ViewBag.Admins)
             {
-                <option value="@admin.AdminID">@admin.Username</option>
+                <option value="@admin.AdminID">@admin.AdminID : @admin.Username</option>
             }
         </select>
     </div>
@@ -26,19 +26,27 @@
             <option value="">Select Book</option>
             @foreach (var book in ViewBag.Books)
             {
-                <option value="@book.BookID">@book.Title</option>
+                <option value="@book.BookID">@book.BookID : @book.Title</option>
             }
         </select>
     </div>
     <div class="form-group">
-        <label for="guestId">Select Guest</label>
-        <select id="guestId" name="guestId" class="form-control" required>
+        <label for="guestId">Select Guest (optional)</label>
+        <select id="guestId" name="guestId" class="form-control">
             <option value="">Select Guest</option>
             @foreach (var guest in ViewBag.Guests)
             {
-                <option value="@guest.GuestID">@guest.Name</option>
+                <option value="@guest.GuestID">@guest.GuestID : @guest.Name</option>
             }
         </select>
+    </div>
+    <div class="form-group">
+        <label for="guestName">Name</label>
+        <input type="text" id="guestName" name="guestName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="guestEmail">Email</label>
+        <input type="email" id="guestEmail" name="guestEmail" class="form-control" />
     </div>
     <button type="submit" class="btn btn-primary">Issue Book</button>
 </form>

@@ -31,9 +31,15 @@
                 <span asp-validation-for="Genre" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Status"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
+                <label asp-for="Status">Status</label>
+                <select asp-for="Status" class="form-control">
+                    <option value="@Model.Status" selected hidden>@Model.Status</option>
+                    @foreach (var statusOption in OnlineLibrary.Models.Book.StatusOptions)
+                        if (@statusOption != @Model.Status)
+                        {
+                            <option value="@statusOption">@statusOption</option>
+                        }
+                </select>
             </div>
             <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
         </form>

@@ -86,7 +86,6 @@ namespace OnlineLibrary.Controllers
                 Book_BookID = book.BookID,
                 Guest_GuestID = guest.GuestID
             };
-
             _context.Reservation.Add(reservation);
 
             book.Status = "Reserved";

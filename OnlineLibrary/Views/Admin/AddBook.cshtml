@@ -20,21 +20,20 @@
                 <span asp-validation-for="Author" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ISBN"></label>
-                <input asp-for="ISBN" class="form-control" />
-                <span asp-validation-for="ISBN" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Genre"></label>
                 <input asp-for="Genre" class="form-control" />
                 <span asp-validation-for="Genre" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Status"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
+                <label asp-for="Status">Status</label>
+                <select asp-for="Status" class="form-control">
+                    @foreach (var statusOption in OnlineLibrary.Models.Book.StatusOptions)
+                    {
+                        <option value="@statusOption">@statusOption</option>
+                    }
+                </select>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Add Book</button>
+            <button type="submit" class="btn btn-primary">Add Book</button>
         </form>
     </div>
 </div>

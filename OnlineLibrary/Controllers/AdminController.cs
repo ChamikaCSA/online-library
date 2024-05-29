@@ -310,15 +310,34 @@ namespace OnlineLibrary.Controllers
         public async Task<IActionResult> UpdateReturn(int issueId)
         {
             var issue = await _context.Issue.FindAsync(issueId);
+
             if (issue == null)
             {
                 return NotFound();
             }
 
+            var book = await _context.Book.FindAsync(issue.Book_BookID);
+
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            var reservation = await _context.Reservation.FirstOrDefaultAsync(r => r.Book_BookID == book.BookID);
+
             issue.ReturnDate = DateTime.Today;
             issue.Status = "Returned";
-
             _context.Update(issue);
+
+            if (reservation != null)
+            {
+                reservation.Status = "Available";
+                _context.Update(reservation);
+            }
+
+            book.Status = "Available";
+            _context.Update(book);
+
             await _context.SaveChangesAsync();
 
             TempData["UpdateReturnSuccessMessage"] = "Return status updated successfully!";
@@ -337,13 +356,37 @@ namespace OnlineLibrary.Controllers
         // POST: Admin/IssueBook
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> IssueBook(int bookId, int guestId, int adminId)
+        public async Task<IActionResult> IssueBook(int bookId, int adminId, int? guestId, string guestName, string guestEmail)
         {
             var book = await _context.Book.FindAsync(bookId);
-            var guest = await _context.Guest.FindAsync(guestId);
             var admin = await _context.Admin.FindAsync(adminId);
 
-            if (book == null || guest == null || admin == null)
+            if (book == null || admin == null )
+            {
+                return NotFound();
+            }
+
+            Guest? guest = null;
+
+            if (guestId.HasValue)
+            {
+                guest = await _context.Guest.FindAsync(guestId.Value);
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(guestName) && !string.IsNullOrEmpty(guestEmail))
+                {
+                    guest = new Guest
+                    {
+                        Name = guestName,
+                        Email = guestEmail
+                    };
+                    _context.Guest.Add(guest);
+                    await _context.SaveChangesAsync();
+                }
+            }
+
+            if (guest == null)
             {
                 return NotFound();
             }
@@ -353,13 +396,22 @@ namespace OnlineLibrary.Controllers
                 IssueDate = DateTime.Now,
                 Status = "Issued",
                 Admin_AdminID = adminId,
-                Guest_GuestID = guestId,
+                Guest_GuestID = guest.GuestID,
                 Book_BookID = bookId
             };
-
             _context.Issue.Add(issue);
+
+            var reservation = await _context.Reservation.FirstOrDefaultAsync(r => r.Book_BookID == book.BookID);
+
+            if (reservation != null)
+            {
+                reservation.Status = "Issued";
+                _context.Update(reservation);
+            }
+
             book.Status = "Issued";
             _context.Update(book);
+
             await _context.SaveChangesAsync();
 
             TempData["IssueBookSuccessMessage"] = "Book issued successfully!";
